@@ -13,7 +13,9 @@
 
   /* ---------------- Hero load-in ---------------- */
   const hero = document.querySelector(".hero");
-  requestAnimationFrame(() => hero.classList.add("is-loaded"));
+  if (hero) {
+    requestAnimationFrame(() => hero.classList.add("is-loaded"));
+  }
 
   /* ---------------- Hero parallax ---------------- */
   const heroMedia = document.getElementById("heroMedia");
@@ -119,6 +121,30 @@
       );
       howSteps.forEach((s) => stepIO.observe(s));
     }
+  }
+
+  /* ---------------- Mobile nav menu ---------------- */
+  const burger = document.getElementById("navBurger");
+  const mobileMenu = document.getElementById("navMobileMenu");
+  if (burger && mobileMenu) {
+    const closeMenu = () => {
+      burger.setAttribute("aria-expanded", "false");
+      mobileMenu.classList.remove("is-open");
+      document.body.style.overflow = "";
+    };
+    const openMenu = () => {
+      burger.setAttribute("aria-expanded", "true");
+      mobileMenu.classList.add("is-open");
+      document.body.style.overflow = "hidden";
+    };
+    burger.addEventListener("click", () => {
+      const isOpen = burger.getAttribute("aria-expanded") === "true";
+      isOpen ? closeMenu() : openMenu();
+    });
+    mobileMenu.querySelectorAll("a").forEach((a) => a.addEventListener("click", closeMenu));
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeMenu();
+    });
   }
 
   /* ---------------- Portfolio rail: drag-to-scroll on desktop ---------------- */

@@ -49,7 +49,7 @@
 
 html {
   background: var(--black);
-  scroll-behavior: auto;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -354,6 +354,88 @@ section {
   color: var(--black);
 }
 
+.nav__right {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+}
+.nav__link {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--silver-bright);
+}
+.nav__link[aria-current="page"] {
+  color: var(--gold-2);
+}
+
+.nav__burger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 34px;
+  height: 34px;
+}
+.nav__burger span {
+  display: block;
+  width: 22px;
+  height: 1.5px;
+  background: var(--silver-bright);
+  transition: transform var(--dur-fast) var(--ease), opacity var(--dur-fast) var(--ease);
+}
+.nav__burger[aria-expanded="true"] span:nth-child(1) {
+  transform: translateY(6.5px) rotate(45deg);
+}
+.nav__burger[aria-expanded="true"] span:nth-child(2) {
+  opacity: 0;
+}
+.nav__burger[aria-expanded="true"] span:nth-child(3) {
+  transform: translateY(-6.5px) rotate(-45deg);
+}
+
+.nav__mobile-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 99;
+  background: var(--black-soft);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 30px;
+  padding: 0 var(--gutter);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-12px);
+  transition: opacity var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
+}
+.nav__mobile-menu.is-open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+.nav__mobile-link {
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  color: var(--silver-bright);
+}
+.nav__mobile-link[aria-current="page"] {
+  color: var(--gold-2);
+}
+.nav__mobile-menu .btn-gold {
+  margin-top: 12px;
+}
+
+@media (max-width: 760px) {
+  .nav__right {
+    display: none;
+  }
+  .nav__burger {
+    display: flex;
+  }
+}
+
 /* ---------- Hero ---------- */
 .hero {
   position: relative;
@@ -575,6 +657,7 @@ section {
 .how {
   background: var(--black);
   padding-top: var(--section-pad);
+  scroll-margin-top: 70px;
 }
 .how__intro {
   padding-inline: var(--gutter);
@@ -1043,6 +1126,7 @@ section {
 .footer-cta {
   padding-block: clamp(90px, 16vw, 180px);
   text-align: center;
+  scroll-margin-top: 70px;
 }
 .footer-cta__inner {
   max-width: 640px;
@@ -1078,6 +1162,85 @@ section {
   color: var(--silver-grey);
   flex-wrap: wrap;
   gap: 12px;
+}
+
+/* ---------- About page: story intro ---------- */
+.story-intro {
+  padding-block: calc(var(--section-pad) + 60px) var(--section-pad);
+  background: var(--black);
+}
+.story-intro h1 {
+  max-width: 18ch;
+}
+.story-intro__lines {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.story-intro__lines p {
+  color: var(--silver-mid);
+  font-size: 17px;
+  max-width: 46ch;
+}
+
+/* ---------- About page: founders ---------- */
+.founders {
+  padding-block: var(--section-pad);
+}
+.founders__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1px;
+  background: rgba(212, 175, 55, 0.18);
+}
+@media (min-width: 760px) {
+  .founders__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.founder-card {
+  background: var(--charcoal);
+  padding: clamp(36px, 5vw, 56px);
+}
+.founder-card__avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--black);
+  background: var(--gold-gradient);
+  margin-bottom: 22px;
+}
+.founder-card__name {
+  font-size: 1.4rem;
+  color: var(--silver-bright);
+}
+.founder-card__role {
+  margin-top: 4px;
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--gold-2);
+}
+.founder-card__line {
+  margin-top: 16px;
+  color: var(--silver-mid);
+  font-size: 15px;
+  max-width: 34ch;
+}
+.founders__closing {
+  margin-top: 48px;
+  padding-inline: var(--gutter);
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--gold-2);
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
 }
 
 /* ---------- Reduced motion ---------- */
