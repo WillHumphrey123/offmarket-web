@@ -571,9 +571,91 @@ section {
     gap: 80px;
   }
 }
+.problem__copy {
+  margin-top: 20px;
+  max-width: 42ch;
+  color: var(--silver-mid);
+  font-size: 17px;
+  line-height: 1.6;
+}
 /* Proof visual: a public post captioned "off-market" — the contradiction, made visible */
 .proof-post {
   max-width: 420px;
+}
+/* Broadcast: rings + scattered dots show the listing radiating out to strangers, contradicting the "off-market" tag */
+.broadcast {
+  position: relative;
+}
+.broadcast__rings {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 0;
+}
+.broadcast__ring {
+  position: absolute;
+  width: 68%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 1.5px solid rgba(212, 175, 55, 0.85);
+  box-shadow: 0 0 22px 1px rgba(212, 175, 55, 0.25);
+  opacity: 0;
+  animation: ring-pulse 3.6s var(--ease) infinite;
+}
+.broadcast__ring:nth-child(2) {
+  animation-delay: 1.2s;
+}
+.broadcast__ring:nth-child(3) {
+  animation-delay: 2.4s;
+}
+@keyframes ring-pulse {
+  0% {
+    transform: scale(0.5);
+    opacity: 0.8;
+  }
+  70% {
+    opacity: 0.18;
+  }
+  100% {
+    transform: scale(1.95);
+    opacity: 0;
+  }
+}
+.broadcast__dots {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+.broadcast__dot {
+  position: absolute;
+  top: var(--y);
+  left: var(--x);
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--silver-mid);
+  box-shadow: 0 0 8px 1px rgba(212, 175, 55, 0.55);
+  opacity: 0;
+  animation: dot-appear 0.7s ease forwards;
+  animation-delay: var(--d);
+}
+@keyframes dot-appear {
+  from {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  to {
+    opacity: 0.85;
+    transform: scale(1);
+  }
+}
+.broadcast .proof-post__card {
+  position: relative;
+  z-index: 1;
 }
 .proof-post__card {
   border: 1px solid rgba(212, 175, 55, 0.2);
