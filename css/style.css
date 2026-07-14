@@ -373,7 +373,7 @@ section {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 67%;
+  object-position: center 58%;
   will-change: transform;
 }
 .hero__scrim {
@@ -404,7 +404,7 @@ section {
   height: 4px;
 }
 .hero__headline {
-  font-size: clamp(2.2rem, 5.6vw, 4.6rem);
+  font-size: clamp(2.6rem, 7vw, 5.8rem);
   color: var(--silver-bright);
 }
 .hero__headline span {
@@ -412,10 +412,6 @@ section {
   opacity: 0;
   transform: translateY(22px);
   transition: opacity 1s var(--ease), transform 1s var(--ease);
-}
-.hero__headline span:nth-child(2) {
-  transition-delay: 0.35s;
-  color: var(--silver-mid);
 }
 .hero.is-loaded .hero__headline span {
   opacity: 1;
