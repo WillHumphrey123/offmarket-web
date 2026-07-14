@@ -188,6 +188,54 @@ section {
   margin-bottom: 28px;
 }
 
+/* ---------- Corner-frame: signature gold viewfinder marks, repeated every section ---------- */
+.corner-frame::before,
+.corner-frame::after {
+  content: "";
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  z-index: 3;
+  pointer-events: none;
+  opacity: 0.5;
+}
+.corner-frame::before {
+  top: 32px;
+  left: var(--gutter);
+  border-top: 1px solid var(--gold-2);
+  border-left: 1px solid var(--gold-2);
+}
+.corner-frame::after {
+  bottom: 32px;
+  right: var(--gutter);
+  border-bottom: 1px solid var(--gold-2);
+  border-right: 1px solid var(--gold-2);
+}
+.corner-frame--light::before,
+.corner-frame--light::after {
+  border-color: var(--gold-dark);
+  opacity: 0.6;
+}
+.hero.corner-frame::before {
+  top: 108px;
+}
+@media (max-width: 640px) {
+  .corner-frame::before,
+  .corner-frame::after {
+    width: 15px;
+    height: 15px;
+  }
+  .corner-frame::before {
+    top: 20px;
+  }
+  .corner-frame::after {
+    bottom: 20px;
+  }
+  .hero.corner-frame::before {
+    top: 90px;
+  }
+}
+
 /* ---------- Typography utilities ---------- */
 .eyebrow {
   font-family: var(--font-sans);
@@ -647,6 +695,7 @@ section {
 }
 .how__steps {
   order: 2;
+  position: relative;
   padding-inline: var(--gutter);
   display: flex;
   flex-direction: column;
@@ -661,13 +710,48 @@ section {
     padding-top: 0;
   }
 }
+/* Gold spine: connects the four steps down the left edge, dots light up as each step activates */
+.how__steps::before {
+  content: "";
+  position: absolute;
+  left: calc(var(--gutter) - 26px);
+  top: 12px;
+  bottom: 12px;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, rgba(212, 175, 55, 0.4) 6%, rgba(212, 175, 55, 0.4) 94%, transparent);
+}
 .how__step {
+  position: relative;
   max-width: 440px;
   opacity: 0.28;
   transition: opacity var(--dur-med) var(--ease);
 }
 .how__step.is-active {
   opacity: 1;
+}
+.how__step::before {
+  content: "";
+  position: absolute;
+  left: -26px;
+  top: 12px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  background: var(--black);
+  border: 1.5px solid rgba(212, 175, 55, 0.4);
+  transition: background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease);
+}
+.how__step.is-active::before {
+  background: var(--gold-2);
+  border-color: var(--gold-2);
+  box-shadow: 0 0 14px 2px rgba(212, 175, 55, 0.6);
+}
+@media (max-width: 640px) {
+  .how__steps::before,
+  .how__step::before {
+    display: none;
+  }
 }
 .how__step-num {
   font-family: var(--font-sans);
@@ -1028,6 +1112,14 @@ section {
   scroll-snap-align: start;
   overflow: hidden;
   border-radius: 2px;
+  outline: 1px solid transparent;
+  outline-offset: -1px;
+  box-shadow: 0 0 0 rgba(212, 175, 55, 0);
+  transition: outline-color var(--dur-med) var(--ease), box-shadow var(--dur-med) var(--ease);
+}
+.portfolio__card:hover {
+  outline-color: rgba(212, 175, 55, 0.65);
+  box-shadow: 0 18px 40px -14px rgba(212, 175, 55, 0.35);
 }
 .portfolio__card img {
   width: 100%;
@@ -1070,7 +1162,7 @@ section {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1px;
-  background: rgba(212, 175, 55, 0.18);
+  background: rgba(212, 175, 55, 0.32);
 }
 @media (min-width: 860px) {
   .split__grid {
@@ -1081,6 +1173,13 @@ section {
   background: var(--charcoal);
   padding: clamp(36px, 5vw, 64px);
   position: relative;
+}
+.split__icon {
+  width: 22px;
+  height: 22px;
+  color: var(--gold-2);
+  opacity: 0.75;
+  margin-bottom: 18px;
 }
 .split__col .eyebrow {
   margin-bottom: 22px;
@@ -1205,7 +1304,7 @@ section {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1px;
-  background: rgba(212, 175, 55, 0.18);
+  background: rgba(212, 175, 55, 0.32);
 }
 @media (min-width: 760px) {
   .founders__grid {
