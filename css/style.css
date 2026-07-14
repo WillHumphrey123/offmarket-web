@@ -18,6 +18,10 @@
   --gold-1: #c6a052;
   --gold-2: #d4af37;
   --gold-gradient: linear-gradient(120deg, var(--gold-1), var(--gold-2));
+  --gold-dark: #7a5c1c; /* AA-safe gold for text on light sections */
+
+  --ivory: #f5f2ea;
+  --ink: #14120d; /* near-black text for light sections */
 
   --font-serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Georgia", serif;
   --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", system-ui,
@@ -132,6 +136,9 @@ h3 {
 .texture {
   position: relative;
   background: var(--charcoal);
+}
+.texture--black {
+  background: var(--black);
 }
 .texture::before {
   content: "";
@@ -305,15 +312,31 @@ section {
 .nav__mark {
   display: flex;
   align-items: center;
+  gap: 11px;
   transition: transform var(--dur-fast) var(--ease);
 }
 .nav__mark:hover {
-  transform: scale(1.06);
+  transform: scale(1.03);
 }
 .nav__mark img {
   display: block;
-  width: 34px;
-  height: 34px;
+  width: 30px;
+  height: 30px;
+  flex: 0 0 auto;
+}
+.nav__wordmark {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  letter-spacing: 0.3px;
+  color: var(--silver-bright);
+  font-weight: 700;
+}
+.nav__wordmark em {
+  font-style: italic;
+  background: var(--gold-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 .nav__cta {
   font-size: 13px;
@@ -350,7 +373,7 @@ section {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 60%;
+  object-position: center 67%;
   will-change: transform;
 }
 .hero__scrim {
@@ -905,10 +928,10 @@ section {
   transform: scale(1.2) rotate(10deg);
 }
 
-/* ---------- Portfolio gallery ---------- */
+/* ---------- Portfolio gallery (the one light chapter) ---------- */
 .portfolio {
   padding-block: var(--section-pad);
-  background: var(--black-soft);
+  background: var(--ivory);
 }
 .portfolio__head {
   padding-inline: var(--gutter);
@@ -918,6 +941,16 @@ section {
   justify-content: space-between;
   gap: 24px;
   flex-wrap: wrap;
+}
+.portfolio__head .eyebrow {
+  background: none;
+  -webkit-background-clip: initial;
+  background-clip: initial;
+  -webkit-text-fill-color: initial;
+  color: var(--gold-dark);
+}
+.portfolio__head h2 {
+  color: var(--ink);
 }
 .portfolio__rail {
   display: flex;

@@ -17,6 +17,9 @@ const svgOverlay = `
     </linearGradient>
   </defs>
   <rect width="${W}" height="${H}" fill="url(#scrim)"/>
+  <text x="134" y="82" font-family="Georgia, 'Iowan Old Style', serif" font-size="26" font-weight="700" fill="#ECE9E3">
+    Off<tspan fill="url(#gold)" font-style="italic">Market</tspan>
+  </text>
   <text x="72" y="470" font-family="Georgia, 'Iowan Old Style', serif" font-size="52" font-weight="700" fill="#ECE9E3">
     <tspan x="72" dy="0">Six digits. One house.</tspan>
     <tspan x="72" dy="60">Nobody else.</tspan>
@@ -29,7 +32,7 @@ const svgOverlay = `
 
 const logoMark = await sharp("assets/logo-mark-128.png").resize(52, 52).toBuffer();
 
-await sharp("assets/images/source/hero-dusk-facade.jpg")
+await sharp("assets/images/source/hero-beach-villa.jpg")
   .resize(W, H, { fit: "cover", position: "attention" })
   .composite([
     { input: Buffer.from(svgOverlay) },

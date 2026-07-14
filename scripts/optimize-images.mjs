@@ -8,7 +8,9 @@ const WIDTHS = [640, 960, 1280, 1920, 2200];
 
 mkdirSync(OUT_DIR, { recursive: true });
 
-const files = readdirSync(SRC_DIR).filter((f) => /\.(jpe?g|png)$/i.test(f));
+const EXCLUDE = new Set(["logo-mark-source.png"]); // handled by build-logo.mjs instead
+
+const files = readdirSync(SRC_DIR).filter((f) => /\.(jpe?g|png)$/i.test(f) && !EXCLUDE.has(f));
 
 for (const file of files) {
   const { name } = parse(file);
