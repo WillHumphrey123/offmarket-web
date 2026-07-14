@@ -27,7 +27,7 @@ async function run() {
   await page.screenshot({ path: `${OUT}/01-hero.png` });
 
   // scroll to problem section
-  await page.locator(".dilution").scrollIntoViewIfNeeded();
+  await page.locator(".problem-facets").scrollIntoViewIfNeeded();
   await page.waitForTimeout(900);
   await page.screenshot({ path: `${OUT}/02-problem.png` });
 

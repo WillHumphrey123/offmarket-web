@@ -555,78 +555,74 @@ section {
   }
 }
 
-/* ---------- Problem section: full-bleed tiled-listing reveal ---------- */
-.dilution {
-  position: relative;
-  min-height: clamp(560px, 92vh, 940px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  background: var(--black);
+/* ---------- Problem section: three-facet editorial breakdown ---------- */
+.problem-facets {
+  padding-block: var(--section-pad);
 }
-.dilution__grid {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
+.problem-facets__head {
+  max-width: 680px;
+  margin-bottom: clamp(56px, 9vw, 104px);
+}
+.problem-facets__grid {
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  grid-template-rows: repeat(4, 1fr);
-  gap: 2px;
+  grid-template-columns: 1fr;
+  gap: 56px;
 }
-@media (max-width: 640px) {
-  .dilution__grid {
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(7, 1fr);
+@media (min-width: 900px) {
+  .problem-facets__grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
   }
 }
-.dilution__grid.reveal {
-  opacity: 1;
-  transform: none;
-  transition: none;
-}
-.dilution__tile {
+.facet {
   position: relative;
-  overflow: hidden;
-  opacity: 0;
-  transform: scale(0.8);
-  transition: opacity 900ms var(--ease), transform 900ms var(--ease);
-  transition-delay: calc(var(--i, 0) * 22ms);
+  transition-delay: calc(var(--i, 0) * 130ms);
 }
-.dilution__grid.is-visible .dilution__tile {
-  opacity: 1;
-  transform: scale(1);
+@media (min-width: 900px) {
+  .facet {
+    padding-inline: 44px;
+  }
+  .facet:first-child {
+    padding-left: 0;
+  }
+  .facet:last-child {
+    padding-right: 0;
+  }
+  .facet + .facet {
+    border-left: 1px solid rgba(212, 175, 55, 0.16);
+  }
 }
-.dilution__tile img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: var(--pos, 50% 50%);
-  filter: grayscale(1) brightness(0.5) contrast(1.08);
-  transform: scale(1.12);
+.facet__num {
+  display: block;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(2.2rem, 3.6vw, 3rem);
+  line-height: 1;
+  margin-bottom: 22px;
+  color: rgba(212, 175, 55, 0.38);
+  transition: color 320ms var(--ease);
 }
-.dilution__scrim {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.93) 0%, rgba(0, 0, 0, 0.86) 34%, rgba(0, 0, 0, 0.5) 62%, rgba(0, 0, 0, 0.22) 100%);
+@supports (-webkit-text-stroke: 1px transparent) {
+  .facet__num {
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(212, 175, 55, 0.7);
+  }
 }
-.dilution__content {
-  position: relative;
-  z-index: 2;
-  max-width: 720px;
-  text-align: center;
+.facet:hover .facet__num {
+  color: var(--gold-2);
+  -webkit-text-stroke: 0;
 }
-.dilution__content .headline-lg {
-  font-size: clamp(2.4rem, 6.4vw, 5rem);
-  line-height: 1.06;
+.facet__title {
+  font-size: clamp(1.3rem, 2.1vw, 1.55rem);
+  color: var(--ivory);
+  margin-bottom: 14px;
+  line-height: 1.28;
 }
-.dilution__copy {
-  margin: 26px auto 0;
-  max-width: 46ch;
+.facet__copy {
   color: var(--silver-mid);
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1.65;
+  max-width: 38ch;
 }
 
 /* ---------- How it works (sticky mechanic) ---------- */
