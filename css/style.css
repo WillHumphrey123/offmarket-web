@@ -1166,8 +1166,48 @@ section {
 
 /* ---------- About page: story intro ---------- */
 .story-intro {
+  position: relative;
   padding-block: calc(var(--section-pad) + 60px) var(--section-pad);
-  background: var(--black);
+  background: linear-gradient(155deg, #0b0908 0%, #030202 50%, #0a0807 100%);
+  overflow: hidden;
+}
+/* Shou sugi ban: charred-wood grain, built in CSS/SVG (no stock photo reads as authentic at this crop) */
+.story-intro::before {
+  content: "";
+  position: absolute;
+  inset: -2%;
+  pointer-events: none;
+  opacity: 0.8;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='500' height='500'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.009 0.85' numOctaves='5' seed='11' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/><feComponentTransfer><feFuncR type='linear' slope='2.1' intercept='-0.4'/><feFuncG type='linear' slope='2.1' intercept='-0.4'/><feFuncB type='linear' slope='2.1' intercept='-0.4'/></feComponentTransfer></filter><rect width='100%25' height='100%25' filter='url(%23g)'/></svg>");
+  background-size: 820px 820px;
+}
+.story-intro::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.55) 0px,
+      rgba(0, 0, 0, 0.55) 1px,
+      transparent 1px,
+      transparent 17px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.4) 0px,
+      rgba(0, 0, 0, 0.4) 2px,
+      transparent 2px,
+      transparent 64px
+    ),
+    radial-gradient(ellipse at 15% 10%, rgba(150, 90, 40, 0.05), transparent 45%),
+    linear-gradient(115deg, rgba(255, 255, 255, 0.03) 0%, transparent 30%);
+}
+.story-intro .container {
+  position: relative;
+  z-index: 1;
 }
 .story-intro h1 {
   max-width: 18ch;
