@@ -1143,17 +1143,23 @@ section {
   background: var(--black);
   overflow: hidden;
 }
-/* Shou sugi ban: real charred-timber photo, full-bleed */
+/* Gold linework: concentric arcs + hairlines fanning off-canvas right, on pure black */
 .story-intro__media {
   position: absolute;
   inset: 0;
   z-index: 0;
+  background: var(--black);
 }
-.story-intro__media img {
+.story-intro__lines {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: center;
+  display: block;
+}
+.story-intro__lines circle,
+.story-intro__lines line {
+  fill: none;
+  stroke: var(--gold-2);
+  vector-effect: non-scaling-stroke;
 }
 .story-intro__scrim {
   position: absolute;
@@ -1161,10 +1167,10 @@ section {
   z-index: 1;
   background: linear-gradient(
     100deg,
-    rgba(0, 0, 0, 0.92) 0%,
-    rgba(0, 0, 0, 0.86) 50%,
-    rgba(0, 0, 0, 0.55) 72%,
-    rgba(0, 0, 0, 0.2) 100%
+    rgba(0, 0, 0, 0.88) 0%,
+    rgba(0, 0, 0, 0.74) 46%,
+    rgba(0, 0, 0, 0.42) 72%,
+    rgba(0, 0, 0, 0.12) 100%
   );
 }
 .story-intro > .container {
