@@ -64,11 +64,6 @@ async function run() {
   await page.waitForTimeout(700);
   await page.screenshot({ path: `${OUT}/06-split.png` });
 
-  // principle
-  await page.locator(".principle").scrollIntoViewIfNeeded();
-  await page.waitForTimeout(700);
-  await page.screenshot({ path: `${OUT}/07-principle.png` });
-
   // footer cta
   await page.locator("#access").scrollIntoViewIfNeeded();
   await page.waitForTimeout(700);

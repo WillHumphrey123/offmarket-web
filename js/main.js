@@ -58,26 +58,40 @@
     revealEls.forEach((el) => el.classList.add("is-visible"));
   }
 
-  /* ---------------- Noise word: OFF-MARKET -> OffMarket ---------------- */
-  const noiseWordWrap = document.getElementById("noiseWordWrap");
-  const noiseWord = document.getElementById("noiseWord");
-  if (noiseWordWrap && noiseWord) {
-    if (reduceMotion) {
-      noiseWord.classList.add("is-clean");
-    } else {
-      const io2 = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              setTimeout(() => noiseWord.classList.add("is-clean"), 300);
-              io2.unobserve(entry.target);
-            }
-          });
-        },
-        { threshold: 0.5 }
-      );
-      io2.observe(noiseWordWrap);
-    }
+  /* ---------------- Proof post: engagement counters tick up ---------------- */
+  const proofStats = document.getElementById("proofStats");
+  if (proofStats) {
+    const counters = proofStats.querySelectorAll("b[data-target]");
+    const runCount = () => {
+      counters.forEach((el) => {
+        const target = parseInt(el.dataset.target, 10);
+        if (reduceMotion) {
+          el.textContent = target.toLocaleString();
+          return;
+        }
+        const start = performance.now();
+        const duration = 900;
+        const tick = (now) => {
+          const p = Math.min(1, (now - start) / duration);
+          const eased = 1 - Math.pow(1 - p, 3);
+          el.textContent = Math.round(target * eased).toLocaleString();
+          if (p < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      });
+    };
+    const io2 = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            runCount();
+            io2.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+    io2.observe(proofStats);
   }
 
   /* ---------------- How-it-works: step + stage sync ---------------- */

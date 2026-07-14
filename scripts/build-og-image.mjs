@@ -21,8 +21,8 @@ const svgOverlay = `
     Off<tspan fill="url(#gold)" font-style="italic">Market</tspan>
   </text>
   <text x="72" y="470" font-family="Georgia, 'Iowan Old Style', serif" font-size="52" font-weight="700" fill="#ECE9E3">
-    <tspan x="72" dy="0">The best homes are</tspan>
-    <tspan x="72" dy="60">never advertised.</tspan>
+    <tspan x="72" dy="0">Six digits. One house.</tspan>
+    <tspan x="72" dy="60">Nobody else.</tspan>
   </text>
   <text x="72" y="580" font-family="Georgia, serif" font-style="italic" font-size="22" fill="url(#gold)">
     Connecting the right property to the right people.
