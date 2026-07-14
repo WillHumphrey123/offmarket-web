@@ -8,7 +8,10 @@ const WIDTHS = [640, 960, 1280, 1920, 2200];
 
 mkdirSync(OUT_DIR, { recursive: true });
 
-const EXCLUDE = new Set(["logo-mark-source.png"]); // handled by build-logo.mjs instead
+const EXCLUDE = new Set([
+  "logo-mark-source.png", // handled by build-logo.mjs instead
+  "shou-sugi-ban-texture.jpg", // handled by build-story-texture.mjs — needs upscaling, not the withoutEnlargement default here
+]);
 
 const files = readdirSync(SRC_DIR).filter((f) => /\.(jpe?g|png)$/i.test(f) && !EXCLUDE.has(f));
 

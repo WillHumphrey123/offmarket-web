@@ -1168,57 +1168,40 @@ section {
 .story-intro {
   position: relative;
   padding-block: calc(var(--section-pad) + 60px) var(--section-pad);
-  background: #0a0705;
+  background: var(--black);
   overflow: hidden;
 }
-/* Shou sugi ban: charred-wood grain, built in CSS/SVG (no stock photo reads as authentic at full coverage) */
-.story-intro::before {
-  content: "";
-  position: absolute;
-  inset: -2%;
-  pointer-events: none;
-  opacity: 1;
-  mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='500' height='500'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.006 0.55' numOctaves='5' seed='11' stitchTiles='stitch' result='coarse'/><feTurbulence type='fractalNoise' baseFrequency='0.4 0.55' numOctaves='2' seed='4' stitchTiles='stitch' result='fine'/><feBlend in='coarse' in2='fine' mode='multiply' result='blended'/><feColorMatrix in='blended' type='saturate' values='0'/><feComponentTransfer><feFuncR type='linear' slope='2.8' intercept='-0.6'/><feFuncG type='linear' slope='2.8' intercept='-0.6'/><feFuncB type='linear' slope='2.8' intercept='-0.6'/></feComponentTransfer></filter><rect width='100%25' height='100%25' filter='url(%23g)'/></svg>");
-  background-size: 760px 760px;
-}
-.story-intro::after {
-  content: "";
+/* Shou sugi ban: real charred-timber photo, full-bleed */
+.story-intro__media {
   position: absolute;
   inset: 0;
-  pointer-events: none;
-  background:
-    repeating-linear-gradient(
-      90deg,
-      rgba(0, 0, 0, 0.7) 0px,
-      rgba(0, 0, 0, 0.7) 2px,
-      transparent 2px,
-      transparent 118px,
-      rgba(0, 0, 0, 0.4) 118px,
-      rgba(0, 0, 0, 0.4) 120px,
-      transparent 120px,
-      transparent 232px
-    ),
-    repeating-linear-gradient(
-      90deg,
-      rgba(255, 255, 255, 0.035) 0px,
-      rgba(255, 255, 255, 0.035) 58px,
-      transparent 58px,
-      transparent 120px,
-      rgba(0, 0, 0, 0.16) 120px,
-      rgba(0, 0, 0, 0.16) 178px,
-      transparent 178px,
-      transparent 232px
-    ),
-    radial-gradient(ellipse at 18% 12%, rgba(170, 100, 45, 0.1), transparent 42%),
-    radial-gradient(ellipse at 85% 90%, rgba(170, 100, 45, 0.06), transparent 40%),
-    linear-gradient(125deg, rgba(255, 255, 255, 0.05) 0%, transparent 22%);
+  z-index: 0;
+}
+.story-intro__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.story-intro__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    100deg,
+    rgba(0, 0, 0, 0.92) 0%,
+    rgba(0, 0, 0, 0.86) 50%,
+    rgba(0, 0, 0, 0.55) 72%,
+    rgba(0, 0, 0, 0.2) 100%
+  );
+}
+.story-intro > .container {
+  position: relative;
+  z-index: 2;
 }
 .story-intro .eyebrow,
 .story-intro h1,
 .story-intro .story-intro__lines {
-  position: relative;
-  z-index: 1;
   text-shadow: 0 2px 18px rgba(0, 0, 0, 0.7);
 }
 .story-intro h1 {
