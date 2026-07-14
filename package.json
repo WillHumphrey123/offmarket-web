@@ -1,0 +1,17 @@
+{
+  "name": "offmarket-web",
+  "version": "1.0.0",
+  "description": "OffMarket — a single-scroll, cinematic landing page for genuinely off-market real estate.",
+  "private": true,
+  "scripts": {
+    "dev": "npx serve . -l 4173",
+    "optimize-images": "node scripts/optimize-images.mjs",
+    "build-og-image": "node scripts/build-og-image.mjs",
+    "verify": "node scripts/verify.mjs"
+  },
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "playwright": "^1.61.1",
+    "sharp": "^0.35.3"
+  }
+}
