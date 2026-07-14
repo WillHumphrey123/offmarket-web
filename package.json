@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "npx serve . -l 4173",
     "optimize-images": "node scripts/optimize-images.mjs",
+    "build-logo": "node scripts/build-logo.mjs",
     "build-og-image": "node scripts/build-og-image.mjs",
     "verify": "node scripts/verify.mjs"
   },

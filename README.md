@@ -27,17 +27,19 @@ library would add weight without adding capability here.
 ## Project structure
 
 ```
-index.html               single page, all 7 sections
+index.html               single page, all 6 sections
 css/style.css             full design system (tokens, type, motion, components)
 js/main.js                 nav state, parallax, scroll reveals, sticky-mechanic sync
 assets/
-  favicon.svg / *.png       favicon set
+  logo-mark-*.png           the gold mark, cut out transparent, at a few sizes
+  favicon-*.png / apple-touch-icon.png   generated from the logo mark
   images/
-    source/                 original sourced photography (full-res)
+    source/                 original sourced photography + the raw logo file (full-res)
     optimized/               generated AVIF/WebP responsive sets (checked in)
     og-image.jpg             generated social share card
 scripts/
   optimize-images.mjs        regenerates assets/images/optimized/*
+  build-logo.mjs              regenerates assets/logo-mark-*.png and favicons from the source logo
   build-og-image.mjs         regenerates assets/images/og-image.jpg
 ```
 
@@ -61,6 +63,22 @@ If you swap in new source photography, drop the files into
 npm run optimize-images   # -> assets/images/optimized/*.{avif,webp}
 npm run build-og-image    # -> assets/images/og-image.jpg
 ```
+
+### Regenerating the logo mark
+
+The nav mark and all favicons are cut from `assets/images/source/logo-mark-source.png`
+(a flat-black-background render of the gold mark). To swap in a new version, replace
+that file and re-run:
+
+```bash
+npm run build-logo         # -> assets/logo-mark-*.png, favicon-*.png, apple-touch-icon.png
+npm run build-og-image     # OG image embeds the mark too — rebuild after build-logo
+```
+
+`build-logo.mjs` knocks the near-black background out to transparency by luminance
+(pixels below ~32 go fully transparent, above ~85 stay fully opaque, with a soft ramp
+between) — tune the `LOW`/`HIGH` constants in the script if a future source image has a
+different background tone.
 
 ## Wiring up "Request Access"
 
