@@ -490,7 +490,7 @@ section {
   height: 100svh;
   min-height: 560px;
   display: flex;
-  align-items: flex-end;
+  align-items: flex-start;
   overflow: hidden;
   background: var(--black);
 }
@@ -508,6 +508,11 @@ section {
 @media (min-width: 761px) {
   .hero__mark {
     transform: translate(11%, -3%);
+  }
+}
+@media (max-width: 760px) {
+  .hero__mark {
+    transform: translate(0, 14%);
   }
 }
 .hero__rays line {
@@ -584,7 +589,7 @@ section {
 .hero__content {
   position: relative;
   z-index: 2;
-  padding: 0 var(--gutter) clamp(56px, 10vh, 120px);
+  padding: clamp(130px, 20vh, 190px) var(--gutter) 0;
   max-width: 900px;
 }
 .hero__eyebrow-space {
