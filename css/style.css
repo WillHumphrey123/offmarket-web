@@ -573,33 +573,50 @@ section {
   max-width: 38ch;
 }
 
-/* ---------- The Principle: conviction, not specification — restraint is the point ---------- */
+/* ---------- The Principle: answers "what stops someone screenshotting it" ---------- */
 .principle {
-  position: relative;
-  background: var(--black);
+  background: var(--charcoal-2);
   padding-block: var(--section-pad);
+  text-align: center;
 }
-.principle__headline {
-  max-width: 800px;
-  font-size: clamp(2.6rem, 5.5vw, 4.6rem);
-  line-height: 1.1;
-  color: var(--silver-bright);
+.principle__inner {
+  max-width: 720px;
+  margin-inline: auto;
 }
 .principle__copy {
-  margin-top: 20px;
-  max-width: 1100px;
-  color: var(--silver-grey);
-  font-family: var(--font-sans);
-  font-size: 18px;
-  line-height: 1.6;
+  margin-top: 22px;
+  margin-inline: auto;
+  max-width: 52ch;
+  color: var(--silver-mid);
+  font-size: 17px;
+  line-height: 1.65;
 }
-.principle__hairline {
+.principle__facts {
+  margin-top: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px 32px;
+}
+.principle__facts span {
+  position: relative;
+  padding-left: 16px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--gold-2);
+}
+.principle__facts span::before {
+  content: "";
   position: absolute;
-  bottom: 0;
   left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.35), transparent);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--gold-2);
 }
 
 /* ---------- How it works (sticky mechanic) ---------- */
