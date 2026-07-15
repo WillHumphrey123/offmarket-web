@@ -23,6 +23,14 @@
   <meta name="theme-color" content="#000000" />
 
   <link rel="stylesheet" href="/css/style.css" />
+  <link
+    rel="preload"
+    as="image"
+    href="assets/images/optimized/hero-dusk-facade-1920.webp"
+    imagesrcset="assets/images/optimized/hero-dusk-facade-640.webp 640w, assets/images/optimized/hero-dusk-facade-960.webp 960w, assets/images/optimized/hero-dusk-facade-1280.webp 1280w, assets/images/optimized/hero-dusk-facade-1920.webp 1920w, assets/images/optimized/hero-dusk-facade-2200.webp 2200w"
+    imagesizes="100vw"
+    fetchpriority="high"
+  />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -32,58 +40,27 @@
       <img src="/assets/logo-mark-128.png" alt="" width="34" height="34" />
       <span class="nav__wordmark">Off<em>Market</em></span>
     </a>
-    <div class="nav__right">
-      <a href="#top" class="nav__link link-gold">Home</a>
-      <a href="#how" class="nav__link link-gold">Features</a>
-      <a href="about.html" class="nav__link link-gold">About Us</a>
-      <a href="#access" class="nav__cta">Download</a>
-    </div>
-    <button class="nav__burger" id="navBurger" aria-expanded="false" aria-controls="navMobileMenu" aria-label="Open menu">
-      <span></span><span></span><span></span>
-    </button>
+    <a href="#access" class="nav__cta">Request Access</a>
   </nav>
-
-  <div class="nav__mobile-menu" id="navMobileMenu">
-    <a href="#top" class="nav__mobile-link">Home</a>
-    <a href="#how" class="nav__mobile-link">Features</a>
-    <a href="about.html" class="nav__mobile-link">About Us</a>
-    <a href="#access" class="btn-gold">
-      Download
-      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M1 8h14M9 2l6 6-6 6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </a>
-  </div>
 
   <main id="main">
 
     <!-- ============ 1. HERO ============ -->
     <section class="hero corner-frame" id="top">
       <div class="hero__media" id="heroMedia">
-        <svg class="hero__mark" viewBox="0 0 1200 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-          <g class="hero__rays">
-            <line x1="600" y1="500" x2="940.0" y2="500.0" style="--op:0.06; --d:0.00s" />
-            <line x1="600" y1="500" x2="1022.9" y2="653.9" style="--op:0.18; --d:0.31s" />
-            <line x1="600" y1="500" x2="1029.0" y2="860.0" style="--op:0.16; --d:0.02s" />
-            <line x1="600" y1="500" x2="797.5" y2="842.1" style="--op:0.14; --d:0.33s" />
-            <line x1="600" y1="500" x2="687.7" y2="997.3" style="--op:0.12; --d:0.04s" />
-            <line x1="600" y1="500" x2="541.0" y2="834.8" style="--op:0.10; --d:0.35s" />
-            <line x1="600" y1="500" x2="375.0" y2="889.7" style="--op:0.08; --d:0.06s" />
-            <line x1="600" y1="500" x2="171.0" y2="860.0" style="--op:0.06; --d:0.37s" />
-            <line x1="600" y1="500" x2="228.8" y2="635.1" style="--op:0.18; --d:0.08s" />
-            <line x1="600" y1="500" x2="95.0" y2="500.0" style="--op:0.16; --d:0.39s" />
-            <line x1="600" y1="500" x2="280.5" y2="383.7" style="--op:0.14; --d:0.10s" />
-            <line x1="600" y1="500" x2="255.3" y2="210.7" style="--op:0.12; --d:0.41s" />
-            <line x1="600" y1="500" x2="320.0" y2="15.0" style="--op:0.10; --d:0.12s" />
-            <line x1="600" y1="500" x2="531.4" y2="111.0" style="--op:0.08; --d:0.43s" />
-            <line x1="600" y1="500" x2="687.7" y2="2.7" style="--op:0.06; --d:0.14s" />
-            <line x1="600" y1="500" x2="770.0" y2="205.6" style="--op:0.18; --d:0.45s" />
-            <line x1="600" y1="500" x2="944.7" y2="210.7" style="--op:0.16; --d:0.16s" />
-            <line x1="600" y1="500" x2="1126.2" y2="308.5" style="--op:0.14; --d:0.47s" />
-          </g>
-          <circle class="hero__ring" cx="600" cy="500" r="300" />
-          <path class="hero__m" d="M450,700 L450,380 L600,560 L750,380 L750,700" />
-        </svg>
-        <div class="hero__glow" aria-hidden="true"></div>
+        <picture>
+          <source type="image/avif" srcset="assets/images/optimized/hero-dusk-facade-640.avif 640w, assets/images/optimized/hero-dusk-facade-960.avif 960w, assets/images/optimized/hero-dusk-facade-1280.avif 1280w, assets/images/optimized/hero-dusk-facade-1920.avif 1920w, assets/images/optimized/hero-dusk-facade-2200.avif 2200w" sizes="100vw" />
+          <source type="image/webp" srcset="assets/images/optimized/hero-dusk-facade-640.webp 640w, assets/images/optimized/hero-dusk-facade-960.webp 960w, assets/images/optimized/hero-dusk-facade-1280.webp 1280w, assets/images/optimized/hero-dusk-facade-1920.webp 1920w, assets/images/optimized/hero-dusk-facade-2200.webp 2200w" sizes="100vw" />
+          <img
+            src="assets/images/optimized/hero-dusk-facade-1920.webp"
+            alt="A secluded modernist residence at dusk, dark architectural facade with warm interior light glowing through a perforated steel screen and timber entry"
+            class="graded"
+            width="2400" height="3600"
+            fetchpriority="high"
+          />
+        </picture>
       </div>
+      <div class="hero__scrim" aria-hidden="true"></div>
       <div class="hero__vignette" aria-hidden="true"></div>
 
       <div class="hero__content">
@@ -114,8 +91,8 @@
           </div>
           <div class="facet reveal" style="--i:1">
             <span class="facet__num">02</span>
-            <h3 class="facet__title">You lose control of the buyer conversation.</h3>
-            <p class="facet__copy">Once the listing leaves your hands, the agent disappears. No insight, no connection, no follow-up.</p>
+            <h3 class="facet__title">The moment it's shared, the agent goes blind.</h3>
+            <p class="facet__copy">No idea who's looking, who's serious, or who's already gone quiet.</p>
           </div>
           <div class="facet reveal" style="--i:2">
             <span class="facet__num">03</span>
@@ -158,8 +135,8 @@
             <div class="how__stage-frame step-0" id="stageFrame">
 
               <svg class="how__lock-icon" id="lockIcon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <rect x="5" y="10" width="14" height="10" rx="1.5" stroke="currentColor" stroke-width="1.3" style="color:var(--gold-2)"/>
-                <path d="M8 10V7a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="1.3" style="color:var(--gold-2)"/>
+                <rect x="5" y="10" width="14" height="10" rx="1.5" stroke="currentColor" stroke-width="1.3"/>
+                <path class="lock-shackle" d="M8 10V7a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="1.3"/>
               </svg>
 
               <div class="code-display" id="codeDisplay" aria-hidden="true">
@@ -327,6 +304,32 @@
 
     <!-- ============ 6. CLOSE ============ -->
     <section class="footer-cta texture texture--black corner-frame" id="access">
+      <div class="footer-cta__mark" aria-hidden="true">
+        <svg viewBox="0 0 1200 1000" preserveAspectRatio="xMidYMid slice">
+          <g class="footer-cta__rays">
+            <line x1="600" y1="500" x2="940.0" y2="500.0" opacity="0.020" />
+            <line x1="600" y1="500" x2="1022.9" y2="653.9" opacity="0.062" />
+            <line x1="600" y1="500" x2="1029.0" y2="860.0" opacity="0.055" />
+            <line x1="600" y1="500" x2="797.5" y2="842.1" opacity="0.048" />
+            <line x1="600" y1="500" x2="687.7" y2="997.3" opacity="0.041" />
+            <line x1="600" y1="500" x2="541.0" y2="834.8" opacity="0.034" />
+            <line x1="600" y1="500" x2="375.0" y2="889.7" opacity="0.027" />
+            <line x1="600" y1="500" x2="171.0" y2="860.0" opacity="0.020" />
+            <line x1="600" y1="500" x2="228.8" y2="635.1" opacity="0.062" />
+            <line x1="600" y1="500" x2="95.0" y2="500.0" opacity="0.055" />
+            <line x1="600" y1="500" x2="280.5" y2="383.7" opacity="0.048" />
+            <line x1="600" y1="500" x2="255.3" y2="210.7" opacity="0.041" />
+            <line x1="600" y1="500" x2="320.0" y2="15.0" opacity="0.034" />
+            <line x1="600" y1="500" x2="531.4" y2="111.0" opacity="0.027" />
+            <line x1="600" y1="500" x2="687.7" y2="2.7" opacity="0.020" />
+            <line x1="600" y1="500" x2="770.0" y2="205.6" opacity="0.062" />
+            <line x1="600" y1="500" x2="944.7" y2="210.7" opacity="0.055" />
+            <line x1="600" y1="500" x2="1126.2" y2="308.5" opacity="0.048" />
+          </g>
+          <circle class="footer-cta__ring" cx="600" cy="500" r="300" />
+          <path class="footer-cta__m" d="M450,700 L450,380 L600,560 L750,380 L750,700" />
+        </svg>
+      </div>
       <div class="container footer-cta__inner reveal">
         <span class="eyebrow">Access By Invitation</span>
         <h2>Access is by invitation.</h2>
@@ -342,7 +345,10 @@
 
   <footer class="site-footer">
     <span>&copy; 2026 OffMarket. All rights reserved.</span>
-    <span>Sydney &middot; Melbourne</span>
+    <span class="site-footer__right">
+      <a href="about.html" class="site-footer__link">Our Story</a>
+      <span>Sydney &middot; Melbourne</span>
+    </span>
   </footer>
 
   <script src="/js/main.js" defer></script>

@@ -87,30 +87,6 @@
     }
   }
 
-  /* ---------------- Mobile nav menu ---------------- */
-  const burger = document.getElementById("navBurger");
-  const mobileMenu = document.getElementById("navMobileMenu");
-  if (burger && mobileMenu) {
-    const closeMenu = () => {
-      burger.setAttribute("aria-expanded", "false");
-      mobileMenu.classList.remove("is-open");
-      document.body.style.overflow = "";
-    };
-    const openMenu = () => {
-      burger.setAttribute("aria-expanded", "true");
-      mobileMenu.classList.add("is-open");
-      document.body.style.overflow = "hidden";
-    };
-    burger.addEventListener("click", () => {
-      const isOpen = burger.getAttribute("aria-expanded") === "true";
-      isOpen ? closeMenu() : openMenu();
-    });
-    mobileMenu.querySelectorAll("a").forEach((a) => a.addEventListener("click", closeMenu));
-    window.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") closeMenu();
-    });
-  }
-
   /* ---------------- Portfolio rail: drag-to-scroll on desktop ---------------- */
   const rail = document.getElementById("portfolioRail");
   if (rail) {
@@ -131,5 +107,41 @@
     const stopDrag = () => (isDown = false);
     rail.addEventListener("pointerup", stopDrag);
     rail.addEventListener("pointerleave", stopDrag);
+  }
+
+  /* ---------------- Portfolio: subtle per-card parallax, only for visible cards ---------------- */
+  const portfolioPictures = document.querySelectorAll(".portfolio__card picture");
+  if (portfolioPictures.length && !reduceMotion) {
+    const visiblePictures = new Set();
+    const portfolioIO = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) visiblePictures.add(entry.target);
+          else visiblePictures.delete(entry.target);
+        });
+      },
+      { threshold: 0 }
+    );
+    portfolioPictures.forEach((el) => portfolioIO.observe(el));
+
+    let pTicking = false;
+    const updatePortfolioParallax = () => {
+      visiblePictures.forEach((el) => {
+        const rect = el.getBoundingClientRect();
+        const offset = (rect.top + rect.height / 2 - window.innerHeight / 2) * 0.06;
+        el.style.transform = `translate3d(0, ${offset}px, 0)`;
+      });
+      pTicking = false;
+    };
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (!pTicking) {
+          requestAnimationFrame(updatePortfolioParallax);
+          pTicking = true;
+        }
+      },
+      { passive: true }
+    );
   }
 })();
