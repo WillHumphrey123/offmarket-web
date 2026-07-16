@@ -144,4 +144,71 @@
       { passive: true }
     );
   }
+
+  /* ---------------- Social proof: count up when it scrolls into view ---------------- */
+  const proofCounters = document.querySelectorAll(".social-proof__text b[data-target]");
+  if (proofCounters.length) {
+    const runCount = (el) => {
+      const target = parseInt(el.dataset.target, 10);
+      if (reduceMotion) {
+        el.textContent = target.toLocaleString();
+        return;
+      }
+      const start = performance.now();
+      const duration = 1100;
+      const tick = (now) => {
+        const p = Math.min(1, (now - start) / duration);
+        const eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.round(target * eased).toLocaleString();
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    };
+    if ("IntersectionObserver" in window) {
+      const proofIO = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              runCount(entry.target);
+              proofIO.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.6 }
+      );
+      proofCounters.forEach((el) => proofIO.observe(el));
+    } else {
+      proofCounters.forEach(runCount);
+    }
+  }
+
+  /* ---------------- Waitlist form: async submit with inline success/error ---------------- */
+  const waitlistForm = document.getElementById("waitlistForm");
+  if (waitlistForm) {
+    const submitBtn = waitlistForm.querySelector(".waitlist-form__submit");
+    const errorEl = document.getElementById("waitlistError");
+    const successEl = document.getElementById("waitlistSuccess");
+
+    waitlistForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      if (errorEl) errorEl.hidden = true;
+      submitBtn.disabled = true;
+      submitBtn.classList.add("is-loading");
+
+      try {
+        const res = await fetch(waitlistForm.action, {
+          method: "POST",
+          body: new FormData(waitlistForm),
+          headers: { Accept: "application/json" },
+        });
+        if (!res.ok) throw new Error("Submit failed");
+        waitlistForm.hidden = true;
+        if (successEl) successEl.hidden = false;
+      } catch (err) {
+        submitBtn.disabled = false;
+        submitBtn.classList.remove("is-loading");
+        if (errorEl) errorEl.hidden = false;
+      }
+    });
+  }
 })();
