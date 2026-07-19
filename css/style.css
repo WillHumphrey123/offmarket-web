@@ -682,6 +682,13 @@ section {
 .how__step.is-active {
   opacity: 1;
 }
+/* Below 980px the visual is a static stack, not synced per-step — the dim/highlight cue has
+   nothing to point at, so read as a flat flicker. Full opacity throughout reads as intentional. */
+@media (max-width: 979px) {
+  .how__step {
+    opacity: 1;
+  }
+}
 .how__step::before {
   content: "";
   position: absolute;
@@ -1149,6 +1156,11 @@ section {
   padding: clamp(36px, 5vw, 64px);
   position: relative;
 }
+@media (max-width: 859px) {
+  .split__col {
+    padding-inline: var(--gutter);
+  }
+}
 .split__icon {
   width: 22px;
   height: 22px;
@@ -1515,6 +1527,11 @@ section {
 .founder-card {
   background: var(--charcoal);
   padding: clamp(36px, 5vw, 56px);
+}
+@media (max-width: 759px) {
+  .founder-card {
+    padding-inline: var(--gutter);
+  }
 }
 .founder-card__avatar {
   width: 56px;
