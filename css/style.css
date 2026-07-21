@@ -1145,7 +1145,7 @@ section {
 /* ---------- Split: agents / buyers ---------- */
 .split {
   padding-top: var(--section-pad);
-  padding-bottom: clamp(48px, 8vw, 100px);
+  padding-bottom: clamp(80px, 12vw, 160px);
 }
 .split__grid {
   display: grid;
@@ -1189,7 +1189,7 @@ section {
 
 /* ---------- Footer CTA ---------- */
 .footer-cta {
-  padding-top: clamp(60px, 10vw, 110px);
+  padding-top: clamp(100px, 16vw, 200px);
   padding-bottom: clamp(90px, 16vw, 180px);
   text-align: center;
   scroll-margin-top: 70px;
@@ -1240,6 +1240,13 @@ section {
   z-index: 1;
   max-width: 640px;
   margin-inline: auto;
+  /* A slower, longer-travel slide-up than the generic .reveal rise (24px/700ms) —
+     this is the closing moment, worth a slightly more deliberate entrance. */
+  transform: translateY(56px);
+  transition: opacity 900ms var(--ease), transform 900ms var(--ease);
+}
+.footer-cta__inner.is-visible {
+  transform: translateY(0);
 }
 .footer-cta h2 {
   font-size: clamp(2rem, 5vw, 3.4rem);
