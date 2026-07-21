@@ -26,9 +26,19 @@
   <link
     rel="preload"
     as="image"
+    href="assets/images/optimized/modernist-dusk-courtyard-mobile-portrait-820.webp"
+    imagesrcset="assets/images/optimized/modernist-dusk-courtyard-mobile-portrait-480.webp 480w, assets/images/optimized/modernist-dusk-courtyard-mobile-portrait-640.webp 640w, assets/images/optimized/modernist-dusk-courtyard-mobile-portrait-820.webp 900w"
+    imagesizes="100vw"
+    media="(max-width: 768px)"
+    fetchpriority="high"
+  />
+  <link
+    rel="preload"
+    as="image"
     href="assets/images/optimized/modernist-dusk-courtyard-1920.webp"
     imagesrcset="assets/images/optimized/modernist-dusk-courtyard-640.webp 640w, assets/images/optimized/modernist-dusk-courtyard-960.webp 960w, assets/images/optimized/modernist-dusk-courtyard-1280.webp 1280w, assets/images/optimized/modernist-dusk-courtyard-1920.webp 1920w, assets/images/optimized/modernist-dusk-courtyard-2200.webp 2200w"
     imagesizes="100vw"
+    media="(min-width: 769px)"
     fetchpriority="high"
   />
 </head>
@@ -49,6 +59,8 @@
     <section class="hero corner-frame" id="top">
       <div class="hero__media" id="heroMedia">
         <picture>
+          <source media="(max-width: 768px)" type="image/avif" srcset="assets/images/optimized/modernist-dusk-courtyard-mobile-portrait-480.avif 480w, assets/images/optimized/modernist-dusk-courtyard-mobile-portrait-640.avif 640w, assets/images/optimized/modernist-dusk-courtyard-mobile-portrait-820.avif 900w" sizes="100vw" />
+          <source media="(max-width: 768px)" type="image/webp" srcset="assets/images/optimized/modernist-dusk-courtyard-mobile-portrait-480.webp 480w, assets/images/optimized/modernist-dusk-courtyard-mobile-portrait-640.webp 640w, assets/images/optimized/modernist-dusk-courtyard-mobile-portrait-820.webp 900w" sizes="100vw" />
           <source type="image/avif" srcset="assets/images/optimized/modernist-dusk-courtyard-640.avif 640w, assets/images/optimized/modernist-dusk-courtyard-960.avif 960w, assets/images/optimized/modernist-dusk-courtyard-1280.avif 1280w, assets/images/optimized/modernist-dusk-courtyard-1920.avif 1920w, assets/images/optimized/modernist-dusk-courtyard-2200.avif 2200w" sizes="100vw" />
           <source type="image/webp" srcset="assets/images/optimized/modernist-dusk-courtyard-640.webp 640w, assets/images/optimized/modernist-dusk-courtyard-960.webp 960w, assets/images/optimized/modernist-dusk-courtyard-1280.webp 1280w, assets/images/optimized/modernist-dusk-courtyard-1920.webp 1920w, assets/images/optimized/modernist-dusk-courtyard-2200.webp 2200w" sizes="100vw" />
           <img
@@ -205,8 +217,13 @@
           <span class="eyebrow">The Portfolio</span>
           <h2 class="headline-lg">Homes that sold without ever being listed.</h2>
         </div>
+        <span class="portfolio__swipe-hint" aria-hidden="true">
+          Swipe
+          <svg viewBox="0 0 16 16" fill="none"><path d="M1 8h14M9 2l6 6-6 6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
       </div>
 
+      <div class="portfolio__rail-wrap">
       <div class="portfolio__rail" id="portfolioRail" tabindex="0" aria-label="Property gallery, scroll horizontally">
 
         <article class="portfolio__card">
@@ -288,6 +305,7 @@
           <div class="portfolio__scrim" aria-hidden="true"></div>
           <div class="portfolio__caption"><div class="suburb">Southampton</div><div class="descriptor">Bedroom · Warm light</div></div>
         </article>
+      </div>
       </div>
     </section>
 

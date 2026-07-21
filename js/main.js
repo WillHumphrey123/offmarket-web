@@ -95,6 +95,7 @@
     let scrollStart = 0;
 
     rail.addEventListener("pointerdown", (e) => {
+      if (e.pointerType === "touch") return; // native touch scrolling handles this; capturing here would fight vertical page scroll
       isDown = true;
       rail.setPointerCapture(e.pointerId);
       startX = e.clientX;
