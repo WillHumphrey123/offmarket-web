@@ -1624,68 +1624,101 @@ section {
    ============================================================ */
 @media (max-width: 768px) {
 
-  /* ---- The Mechanic: the visual pins in place while the steps
-     scroll past it — the mobile equivalent of desktop's side-by-
-     side sticky column, collapsed to one column. Both children
-     share the same grid cell so `.how__visual-wrap` stretches to
-     match `.how__steps`' (much taller) height, which is what gives
-     the sticky frame room to stay stuck instead of unsticking
-     immediately. `.how__steps` gets a top margin equal to the
-     pinned frame's box so its content starts below it, not under
-     it. State changes (step-N) are driven by the same stepIO
-     observer desktop uses — see main.js, nothing mobile-specific
-     needed there since the frame itself is now shared again. ---- */
+  /* ---- The Mechanic: two hard-separated zones, never overlapping.
+     .how__stage becomes a single sticky unit (upper ~46% visual zone,
+     lower ~54% text zone, plain flex-column so one simply sits above
+     the other) pinned below the nav. .how gets a tall padding-bottom
+     so that sticky unit has room to travel while the user scrolls.
+     Steps no longer flow past the visual — all four are stacked
+     (inset:0) inside the text zone's own opaque box and crossfade
+     active/inactive as scroll position moves through the section.
+     That's driven by a dedicated mobile-only handler in main.js
+     (the desktop stepIO is gated off at this width: its per-step
+     geometry assumes flowing, spread-out steps, which no longer
+     exist here). Because the two zones are just stacked flex
+     children of a fixed-height box, neither can ever cover the
+     other at any scroll position. ---- */
+  .how {
+    /* min-height, not padding-bottom: padding-bottom on the sticky element's own
+       containing block does not reliably extend its "room to travel" here — the
+       sticky frame unstuck almost immediately, scrolling away with the page, no
+       matter how much padding-bottom was added. min-height (a floor, not a cap;
+       the section still grows if its content is taller) gives it real room. */
+    min-height: calc(100svh + 300vh);
+  }
   .how__stage {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr;
-    /* Kept small and fixed (not vh) on purpose: the frame's own size is fixed by
-       .how__stage-frame's width/aspect-ratio regardless of viewport height, and a
-       smaller footprint here directly maximizes how much of the viewport is left
-       below it for the active step's text to sit in, fully clear, before the next
-       step's geometry starts pulling it back up under the frame. */
-    --how-mobile-visual-h: 280px;
+    position: sticky;
+    top: 64px;
+    height: calc(100svh - 88px);
+    max-height: 700px;
+    display: flex;
+    flex-direction: column;
   }
   .how__visual-wrap {
-    grid-column: 1;
-    grid-row: 1;
-    display: block;
-    /* .how__visual-wrap/.how__steps carry order:1/2 from the old flex-column mobile
-       layout above. In a grid context `order` also decides paint order, not just
-       position — without this, order:2 made the steps paint (and stay clickable-
-       looking) on top of the pinned visual as they scrolled through its zone. */
-    z-index: 2;
-  }
-  .how__steps {
-    grid-column: 1;
-    grid-row: 1;
-    z-index: 1;
-    margin-top: var(--how-mobile-visual-h);
-    gap: 52vh;
-    padding-top: 6vh;
-    /* The pinned visual unsticks at the bottom edge of this box (it's grid-stretched
-       to match .how__steps' height) — this needs to clear the sticky frame's own
-       height plus margin, or it visually collides with step 04's text as it releases. */
-    padding-bottom: calc(var(--how-mobile-visual-h) + 14vh);
+    /* .how__steps comes first in the DOM (it's order:2 on desktop's flex
+       fallback below 980px); force the visual to render first regardless. */
+    order: -1;
+    flex: 0 0 44%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .how__visual {
-    position: sticky;
-    top: 72px;
-    height: var(--how-mobile-visual-h);
+    position: static;
+    height: auto;
     padding-block: 0;
   }
   .how__stage-frame {
-    width: min(190px, 52vw);
+    width: min(178px, 46vw);
   }
-  /* Now that the visual is synced again on mobile, restore the
-     desktop dim/highlight cue (the <=979px rule that forces full
-     opacity throughout no longer applies once there's something
-     for it to point at). */
+  .how__steps {
+    order: initial;
+    flex: 1;
+    position: relative;
+    background: var(--black);
+    overflow: hidden;
+    gap: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  .how__steps::before {
+    display: none;
+  }
   .how__step {
-    opacity: 0.32;
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    max-width: none;
+    padding-inline: var(--gutter);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: var(--black);
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 450ms var(--ease), transform 450ms var(--ease);
+  }
+  .how__step::before {
+    display: none;
   }
   .how__step.is-active {
     opacity: 1;
+    transform: translateY(0);
+    z-index: 2;
+  }
+  /* The global reduced-motion rule (near the bottom of this file) forces
+     .how__step to opacity:1 unconditionally, which is correct on desktop
+     (steps are spread down the page, all meant to sit visible) but would
+     overlap all four stacked mobile steps at once. Win back the non-active
+     ones with equal !important specificity. */
+  @media (prefers-reduced-motion: reduce) {
+    .how__step {
+      opacity: 0 !important;
+      transform: none !important;
+    }
+    .how__step.is-active {
+      opacity: 1 !important;
+    }
   }
 
   /* ---- Portfolio: signal the swipe ---- */

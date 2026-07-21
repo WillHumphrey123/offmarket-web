@@ -63,14 +63,26 @@
   /* ---------------- How-it-works: step + stage sync ---------------- */
   const howSteps = document.querySelectorAll(".how__step");
   const stageFrame = document.getElementById("stageFrame");
+  const howSection = document.querySelector(".how");
+  const isMobileHow = () => window.matchMedia("(max-width: 768px)").matches;
 
   if (howSteps.length && stageFrame) {
     if (reduceMotion) {
-      howSteps.forEach((s) => s.classList.add("is-active"));
+      // Desktop shows every step lit at once (they're spread down the page, no
+      // conflict). Mobile stacks all four steps at the same position (see the
+      // <=768px rule set), so only the last one may be active or they'd overlap.
+      if (isMobileHow()) {
+        howSteps[howSteps.length - 1].classList.add("is-active");
+      } else {
+        howSteps.forEach((s) => s.classList.add("is-active"));
+      }
       stageFrame.classList.add("step-4");
     } else {
+      // Desktop: steps flow down the page past a sticky visual, so each step's
+      // own position in the viewport is what drives its active state.
       const stepIO = new IntersectionObserver(
         (entries) => {
+          if (isMobileHow()) return; // mobile stacks steps at inset:0 — this geometry is meaningless there, see below
           entries.forEach((entry) => {
             const stepNum = entry.target.dataset.step;
             if (entry.isIntersecting) {
@@ -84,6 +96,39 @@
         { threshold: 0.55, rootMargin: "-10% 0px -10% 0px" }
       );
       howSteps.forEach((s) => stepIO.observe(s));
+
+      // Mobile: the visual is pinned in its own zone and the four steps are
+      // stacked (crossfading) in a separate zone below it, so there's nothing
+      // for per-step IntersectionObserver geometry to key off. Instead, drive
+      // the active step off how far the (tall, padded) .how section has
+      // scrolled through — see the <=768px rule set for the sticky/stacking
+      // layout this pairs with.
+      if (howSection) {
+        let howTicking = false;
+        const updateMobileHow = () => {
+          howTicking = false;
+          if (!isMobileHow()) return;
+          const rect = howSection.getBoundingClientRect();
+          const total = rect.height - window.innerHeight;
+          if (total <= 0) return;
+          const progress = Math.min(1, Math.max(0, -rect.top / total));
+          const idx = Math.min(howSteps.length - 1, Math.floor(progress * howSteps.length));
+          howSteps.forEach((s, i) => s.classList.toggle("is-active", i === idx));
+          stageFrame.className = "how__stage-frame step-" + (idx + 1);
+        };
+        updateMobileHow();
+        window.addEventListener(
+          "scroll",
+          () => {
+            if (!howTicking) {
+              requestAnimationFrame(updateMobileHow);
+              howTicking = true;
+            }
+          },
+          { passive: true }
+        );
+        window.addEventListener("resize", updateMobileHow, { passive: true });
+      }
     }
   }
 
