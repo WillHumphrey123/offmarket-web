@@ -32,6 +32,14 @@
   --dur-med: 700ms;
   --dur-slow: 1100ms;
 
+  /* Scroll fade reveal (see .fade-mask / .fade-content below) */
+  --fade-bg-dur: 550ms;
+  --fade-content-dur: 650ms;
+  --fade-content-delay: 150ms;
+  --fade-exit-dur: 320ms;
+  --fade-stagger: 75ms;
+  --fade-rise: 22px;
+
   --gutter: clamp(24px, 6vw, 96px);
   --section-pad: clamp(72px, 12vw, 160px);
 
@@ -299,19 +307,46 @@ section {
   transform: translateX(3px);
 }
 
-/* ---------- Reveal-on-scroll ---------- */
-.reveal {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity var(--dur-med) var(--ease), transform var(--dur-med) var(--ease);
-  will-change: opacity, transform;
+/* ---------- Scroll fade reveal: background-first, then staggered content ----------
+   Two-part system per section: .fade-mask is an opaque (page-black) overlay that
+   fades OUT to reveal the section's true backdrop (charcoal, ivory, whatever),
+   and .fade-content pieces — label, headline, body, image/UI — fade+rise in on
+   top of it, staggered via --fi. Both key off .is-revealed on the ancestor
+   .fade-section, toggled by one IntersectionObserver in main.js that does NOT
+   unobserve, so sections reverse cleanly on scroll-up: content leads out, the
+   background trails behind it (see the differing transition-delay between the
+   .is-revealed and base states below — that asymmetry is what makes enter and
+   exit read differently). Only opacity/transform are ever animated here — no
+   layout properties, so there's no reflow and nothing shifts as it fades in.
+   The hero and anything visible on first load never use this — see index.html:
+   only sections a visitor scrolls to are wrapped in .fade-section. */
+.fade-mask {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: var(--black);
+  opacity: 1;
+  pointer-events: none;
+  transition: opacity var(--fade-bg-dur) var(--ease) var(--fade-exit-dur);
 }
-.reveal.is-visible {
+.is-revealed .fade-mask {
+  opacity: 0;
+  transition: opacity var(--fade-bg-dur) var(--ease) 0ms;
+}
+.fade-content {
+  position: relative;
+  z-index: 2;
+  opacity: 0;
+  transform: translateY(var(--fade-rise));
+  will-change: opacity, transform;
+  transition: opacity var(--fade-exit-dur) var(--ease), transform var(--fade-exit-dur) var(--ease);
+}
+.is-revealed .fade-content {
   opacity: 1;
   transform: translateY(0);
-}
-.reveal-stagger > * {
-  transition-delay: calc(var(--i, 0) * 90ms);
+  transition:
+    opacity var(--fade-content-dur) var(--ease) calc(var(--fade-content-delay) + var(--fi, 0) * var(--fade-stagger)),
+    transform var(--fade-content-dur) var(--ease) calc(var(--fade-content-delay) + var(--fi, 0) * var(--fade-stagger));
 }
 
 /* ---------- Nav ---------- */
@@ -1237,16 +1272,9 @@ section {
 }
 .footer-cta__inner {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   max-width: 640px;
   margin-inline: auto;
-  /* A slower, longer-travel slide-up than the generic .reveal rise (24px/700ms) —
-     this is the closing moment, worth a slightly more deliberate entrance. */
-  transform: translateY(56px);
-  transition: opacity 900ms var(--ease), transform 900ms var(--ease);
-}
-.footer-cta__inner.is-visible {
-  transform: translateY(0);
 }
 .footer-cta h2 {
   font-size: clamp(2rem, 5vw, 3.4rem);
@@ -1600,9 +1628,12 @@ section {
   .hero__headline span,
   .hero__mission,
   .hero__cta,
-  .reveal {
+  .fade-content {
     opacity: 1 !important;
     transform: none !important;
+  }
+  .fade-mask {
+    opacity: 0 !important;
   }
   .how__step {
     opacity: 1 !important;

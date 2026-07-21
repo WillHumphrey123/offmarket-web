@@ -41,23 +41,28 @@
     );
   }
 
-  /* ---------------- Generic scroll reveals ---------------- */
-  const revealEls = document.querySelectorAll(".reveal");
-  if ("IntersectionObserver" in window && !reduceMotion) {
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("is-visible");
-            io.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.15, rootMargin: "0px 0px -8% 0px" }
-    );
-    revealEls.forEach((el) => io.observe(el));
-  } else {
-    revealEls.forEach((el) => el.classList.add("is-visible"));
+  /* ---------------- Scroll fade reveal: background-first, staggered content ----------------
+     Toggles .is-revealed on each .fade-section both ways (entering AND leaving),
+     never unobserving — that's what lets a section reverse cleanly on scroll-up
+     (content fades out first, background trails, per the CSS transition-delay
+     asymmetry on .fade-mask/.fade-content). threshold:0 + a generous bottom
+     rootMargin triggers as soon as a section starts crossing into the lower
+     portion of the viewport, regardless of how tall the section itself is. */
+  const fadeSections = document.querySelectorAll(".fade-section");
+  if (fadeSections.length) {
+    if (reduceMotion || !("IntersectionObserver" in window)) {
+      fadeSections.forEach((el) => el.classList.add("is-revealed"));
+    } else {
+      const fadeIO = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            entry.target.classList.toggle("is-revealed", entry.isIntersecting);
+          });
+        },
+        { threshold: 0, rootMargin: "0px 0px -18% 0px" }
+      );
+      fadeSections.forEach((el) => fadeIO.observe(el));
+    }
   }
 
   /* ---------------- How-it-works: step + stage sync ---------------- */
