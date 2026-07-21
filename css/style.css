@@ -1643,8 +1643,13 @@ section {
        containing block does not reliably extend its "room to travel" here — the
        sticky frame unstuck almost immediately, scrolling away with the page, no
        matter how much padding-bottom was added. min-height (a floor, not a cap;
-       the section still grows if its content is taller) gives it real room. */
-    min-height: calc(100svh + 300vh);
+       the section still grows if its content is taller) gives it real room.
+       The 200vh term is the actual scroll runway for the 4-step sequence (total
+       scrollable distance ≈ this section's height minus one viewport) — shrink
+       it to make the section feel more scroll-sensitive, grow it to slow the
+       sequence down. Currently 300vh ÷ 1.5 per the user's "1.5x sensitivity"
+       request, i.e. 1.5x less physical scroll to get through all four steps. */
+    min-height: calc(100svh + 200vh);
   }
   .how__stage {
     position: sticky;
