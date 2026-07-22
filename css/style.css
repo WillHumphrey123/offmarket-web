@@ -1712,7 +1712,18 @@ section {
     padding-block: 0;
   }
   .how__stage-frame {
-    width: min(178px, 46vw);
+    width: min(208px, 54vw);
+  }
+  /* The dashboard (step 04's payoff) was rendering at the shared 11px desktop
+     size, which reads as noise at arm's length on a phone. Widening the frame
+     a touch (above) plus a bigger, more tightly-padded row here keeps names/
+     budget/status legible without the card outgrowing its zone. */
+  .track-overlay {
+    padding: 16px;
+  }
+  .track-row {
+    font-size: 13px;
+    padding-top: 8px;
   }
   .how__steps {
     order: initial;
@@ -1735,7 +1746,14 @@ section {
     padding-inline: var(--gutter);
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    /* Top-aligned, not centered: centering left a ~140px dead gap between the
+       visual and its paired step text (both independently centered in their
+       own zone), which read as loose rather than paired. Sitting the text
+       right under the visual makes the pairing unmistakable; the leftover
+       room falls below the text instead, which reads as breathing room, not
+       a gap in the relationship the section is trying to show. */
+    justify-content: flex-start;
+    padding-top: 28px;
     background: var(--black);
     opacity: 0;
     transform: translateY(14px);
@@ -1797,5 +1815,37 @@ section {
     width: 44px;
     background: linear-gradient(to right, transparent, var(--ivory));
     pointer-events: none;
+  }
+
+  /* ---- Tap targets: 44px minimum everywhere, and a couple of contrast fixes.
+     None of these were visible defects — they only showed up measuring actual
+     hit-box sizes — but a 35px nav button or a 20px footer link both read
+     fine and fail a thumb. Sized via min-height on a flex box rather than
+     padding alone, so the fix holds regardless of font metrics. ---- */
+  .nav__cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding-inline: 16px;
+    padding-block: 0;
+  }
+  .nav__mark {
+    min-height: 44px;
+  }
+  .site-footer__link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    margin-block: -12px;
+  }
+  .waitlist-form__field input {
+    padding-block: 14px;
+  }
+  .waitlist-form__field input::placeholder {
+    /* silver-faint (3.1:1 on black) reads fine as a design choice but fails
+       AA for normal text; silver-grey clears it (6.1:1) without looking out
+       of place next to the label above it, which already uses silver-grey. */
+    color: var(--silver-grey);
   }
 }
