@@ -1848,4 +1848,19 @@ section {
        of place next to the label above it, which already uses silver-grey. */
     color: var(--silver-grey);
   }
+
+  /* ---- Hero: guaranteed full-screen, nothing below the fold on first load.
+     100svh (small viewport height — the size when the browser's own chrome is
+     fully expanded) is already the correct unit for "always fits without
+     scrolling"; 100vh is declared first purely as a fallback for the rare
+     browser without svh support, so the section is never unsized. The mobile
+     crop's own aspect ratio (0.462) already matches the iPhone 12 through 16
+     line — mini, standard, Plus, Pro, Pro Max — almost exactly, which is why
+     the framing already looks effectively identical across that entire
+     current lineup; only the older, shorter/wider iPhone SE forces
+     object-fit:cover to crop more off the top/bottom to fill its screen. */
+  .hero {
+    height: 100vh;
+    height: 100svh;
+  }
 }
