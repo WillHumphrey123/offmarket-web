@@ -1702,9 +1702,17 @@ section {
   }
   .how__stage {
     position: sticky;
-    top: 64px;
-    height: calc(100svh - 88px);
-    max-height: 700px;
+    /* Pinned lower than the original 64px, with the visual zone given a
+       fixed height (not a % of the stage) — a percentage share only moves
+       the frame by half of whatever room you add, since it pads evenly
+       above and below; a fixed zone plus a bigger top offset moves the
+       frame directly. Together these put its center around 40% down the
+       screen instead of a quarter of the way down, so it reads as the
+       centerpiece while its step text scrolls past beneath it, not as
+       something stuck up near the nav. */
+    top: 180px;
+    height: calc(100svh - 220px);
+    max-height: 660px;
     display: flex;
     flex-direction: column;
   }
@@ -1712,7 +1720,7 @@ section {
     /* .how__steps comes first in the DOM (it's order:2 on desktop's flex
        fallback below 980px); force the visual to render first regardless. */
     order: -1;
-    flex: 0 0 44%;
+    flex: 0 0 340px;
     display: flex;
     align-items: center;
     justify-content: center;
