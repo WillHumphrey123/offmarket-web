@@ -33,12 +33,13 @@
   --dur-slow: 1100ms;
 
   /* Scroll fade reveal (see .fade-mask / .fade-content below) */
-  --fade-bg-dur: 550ms;
-  --fade-content-dur: 800ms;
-  --fade-content-delay: 150ms;
-  --fade-exit-dur: 420ms;
-  --fade-stagger: 75ms;
+  --fade-bg-dur: 650ms;
+  --fade-content-dur: 950ms;
+  --fade-content-delay: 300ms;
+  --fade-exit-dur: 450ms;
+  --fade-stagger: 110ms;
   --fade-rise: 76px;
+  --fade-scale: 0.96;
 
   --gutter: clamp(24px, 6vw, 96px);
   --section-pad: clamp(72px, 12vw, 160px);
@@ -307,19 +308,29 @@ section {
   transform: translateX(3px);
 }
 
-/* ---------- Scroll fade reveal: background-first, then staggered content ----------
-   Two-part system per section: .fade-mask is an opaque (page-black) overlay that
-   fades OUT to reveal the section's true backdrop (charcoal, ivory, whatever),
-   and .fade-content pieces — label, headline, body, image/UI — fade+rise in on
-   top of it, staggered via --fi. Both key off .is-revealed on the ancestor
-   .fade-section, toggled by one IntersectionObserver in main.js that does NOT
-   unobserve, so sections reverse cleanly on scroll-up: content leads out, the
-   background trails behind it (see the differing transition-delay between the
-   .is-revealed and base states below — that asymmetry is what makes enter and
-   exit read differently). Only opacity/transform are ever animated here — no
-   layout properties, so there's no reflow and nothing shifts as it fades in.
-   The hero and anything visible on first load never use this — see index.html:
-   only sections a visitor scrolls to are wrapped in .fade-section. */
+/* ---------- Scroll fade reveal: background-first, then a deliberate,
+   held-beat cascade of content — modeled on the Apple-style pattern of
+   letting the backdrop fully settle before anything else moves, then
+   bringing pieces in one at a time rather than all at once. ----------
+   Two-part system per section: .fade-mask is an opaque (page-black) overlay
+   that fades OUT to reveal the section's true backdrop (charcoal, ivory,
+   whatever), and .fade-content pieces — label, headline, body, image/UI —
+   fade + rise + scale in on top of it, staggered via --fi. The 300ms base
+   delay (--fade-content-delay) is the "beat": content doesn't start until
+   the backdrop is most of the way through its own 650ms fade, so the two
+   never feel like one flat motion. The 110ms per-element stagger on top of
+   that is deliberately generous — each piece gets its own visible moment
+   rather than the whole section arriving as a block. Both layers key off
+   .is-revealed on the ancestor .fade-section, toggled by one
+   IntersectionObserver in main.js that does NOT unobserve, so sections
+   reverse cleanly on scroll-up: content leads out (quick, no stagger delay),
+   the background trails behind it (see the differing transition-delay
+   between the .is-revealed and base states below — that asymmetry is what
+   makes enter and exit read differently, not just as a reversed clip). Only
+   opacity/transform are ever animated here — no layout properties, so
+   there's no reflow and nothing shifts as it fades in. The hero and
+   anything visible on first load never use this — see index.html: only
+   sections a visitor scrolls to are wrapped in .fade-section. */
 .fade-mask {
   position: absolute;
   inset: 0;
@@ -337,13 +348,13 @@ section {
   position: relative;
   z-index: 2;
   opacity: 0;
-  transform: translateY(var(--fade-rise));
+  transform: translateY(var(--fade-rise)) scale(var(--fade-scale));
   will-change: opacity, transform;
   transition: opacity var(--fade-exit-dur) var(--ease), transform var(--fade-exit-dur) var(--ease);
 }
 .is-revealed .fade-content {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
   transition:
     opacity var(--fade-content-dur) var(--ease) calc(var(--fade-content-delay) + var(--fi, 0) * var(--fade-stagger)),
     transform var(--fade-content-dur) var(--ease) calc(var(--fade-content-delay) + var(--fi, 0) * var(--fade-stagger));
