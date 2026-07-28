@@ -34,11 +34,11 @@
 
   /* Scroll fade reveal (see .fade-mask / .fade-content below) */
   --fade-bg-dur: 550ms;
-  --fade-content-dur: 650ms;
+  --fade-content-dur: 800ms;
   --fade-content-delay: 150ms;
-  --fade-exit-dur: 320ms;
+  --fade-exit-dur: 420ms;
   --fade-stagger: 75ms;
-  --fade-rise: 22px;
+  --fade-rise: 76px;
 
   --gutter: clamp(24px, 6vw, 96px);
   --section-pad: clamp(72px, 12vw, 160px);
