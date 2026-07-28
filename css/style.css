@@ -1874,4 +1874,18 @@ section {
     height: 100vh;
     height: 100svh;
   }
+
+  /* ---- Mechanic code display: the 6 digits (230px total at their shared
+     30px-minimum width) don't fit the mobile stage frame (203-208px wide)
+     and were getting clipped by the frame's overflow:hidden. Shrink both
+     the digits and the gap between them so the whole row sits inside the
+     frame with real margin either side. ---- */
+  .code-display {
+    gap: 6px;
+  }
+  .code-digit {
+    width: 25px;
+    height: 40px;
+    font-size: 1.15rem;
+  }
 }
